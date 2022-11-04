@@ -23,3 +23,6 @@ jobs:
         
       - name: Test coverage 
         run: npm run test
+
+      - name: build
+        run: npm deploy -p --auth {{secrets.NETZA_AUTHTOKEN}} -site {{secrets.NETZA_SITE_ID}}
