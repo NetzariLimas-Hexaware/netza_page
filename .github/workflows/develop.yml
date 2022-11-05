@@ -25,4 +25,7 @@ jobs:
         run: npm run test
 
       - name: build
-        run: npm deploy -p --auth {{secrets.NETZA_AUTHTOKEN}} -site {{secrets.NETZA_SITE_ID}}
+        run: CI=false npm run build
+
+      - name: deploy
+        run: netlify deploy -p --auth {{secrets.NETZA_AUTHTOKEN}} -site {{secrets.NETZA_SITE_ID}}
