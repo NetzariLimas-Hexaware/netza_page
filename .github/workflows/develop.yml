@@ -3,8 +3,6 @@ name: Deploy to QA
 on: 
   pull_request: 
   push: 
-    branches: 
-      - develop/* 
     branches-ignore:
       - main
       
