@@ -1,15 +1,15 @@
-name: Build 
+name: Deploy to QA 
 
 on: 
   pull_request: 
   push: 
     branches: 
       - develop/* 
+    branches-ignore:
+      - main
       
 jobs: 
-  QA-deploy: 
-    environment:
-      name: QA
+  Validate-Dev-Changes:
     runs-on: ubuntu-latest 
     steps: 
       - uses: actions/checkout@v3 
@@ -31,11 +31,22 @@ jobs:
 
       - name: build
         run: CI=false npm run build
-
+  
+  QA-deploy: 
+    needs: Validate-Dev-Changes
+    environment:
+      name: QA
+    runs-on: ubuntu-latest 
+    steps: 
+      - uses: actions/checkout@v3 
+      - uses: actions/setup-node@v3 
+        with: 
+          node-version: "16" 
+          
       - name: deploy
         run: netlify deploy -p --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
 
-  PullRequest-Management:
+  PR-Management:
     needs: QA-deploy
     runs-on: ubuntu-latest
     permissions: write-all
