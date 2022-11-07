@@ -57,9 +57,14 @@ jobs:
         with:
           node-version: "16"
 
-      - name: Get Branch Name
-        id: get-branch
-        uses: ypicard/get-branch-name-github-action@v1
+      # - name: Get Branch Name
+      #   id: get-branch
+      #   uses: ypicard/get-branch-name-github-action@v1
+
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
 
       - name: pull-request
         run: gh pr create --base main --head ${{ steps.get-branch.outputs.branch }} --title "Pulling ${{ steps.get-branch.outputs.branch }} into main" --body "Automated PR"
