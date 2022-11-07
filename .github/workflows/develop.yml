@@ -23,12 +23,6 @@ jobs:
         
       - name: Test coverage 
         run: npm run test
-
-      - name: Set HomePage
-        run: npm run setHomePage
-
-      - name: build
-        run: CI=false npm run build
   
   QA-deploy: 
     needs: Validate-Dev-Changes
@@ -40,6 +34,12 @@ jobs:
       - uses: actions/setup-node@v3 
         with: 
           node-version: "16" 
+
+      - name: Set HomePage
+        run: npm run setHomePage
+
+      - name: build
+        run: CI=false npm run build
           
       - name: deploy
         run: netlify deploy -p --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
