@@ -26,6 +26,9 @@ jobs:
       - name: Test coverage 
         run: npm run test
 
+      - name: Set HomePage
+        run: npm run setHomePage
+
       - name: build
         run: CI=false npm run build
 
