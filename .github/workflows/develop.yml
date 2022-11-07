@@ -8,6 +8,8 @@ on:
       
 jobs: 
   test-code: 
+    environment:
+      name: QA
     runs-on: ubuntu-latest 
     steps: 
       - uses: actions/checkout@v3 
