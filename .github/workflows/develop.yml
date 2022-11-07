@@ -35,6 +35,9 @@ jobs:
         with: 
           node-version: "16" 
 
+      - name: Install Dependencies 
+        run: npm install 
+
       - name: Set HomePage
         run: npm run setHomePage
 
